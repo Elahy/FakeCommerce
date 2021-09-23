@@ -9,10 +9,10 @@ const morgan = require("morgan");
 const passport = require("passport");
 const expressValidator = require("express-validator");
 require("./auth/auth");
-require('dotenv').config();
+require("dotenv").config();
 
 //port
-const port =process.env.PORT || 8080;
+const port = process.env.PORT || 8080;
 
 //routes
 const productRoute = require("./routes/product");
@@ -46,10 +46,15 @@ app.use("/files", express.static(path.join(__dirname, "/uploads")));
 //mongoose
 mongoose.set("useFindAndModify", false);
 mongoose
-    .connect(`mongodb://${process.env.HOST}:27017/store-api`, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-    })
+    // .connect(`mongodb://${process.env.HOST}:27017/store-api`, {
+    .connect(
+        "mongodb+srv://Elahy:a123@cluster-itstore.lswoi.mongodb.net/storeAPI?retryWrites=true&w=majority",
+        {
+            dbName: "storeAPIdb",
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+        },
+    )
     .then((result) => {
         app.listen(process.env.PORT || port, () => {
             console.log(`Server running at ${process.env.PORT || port}`);
