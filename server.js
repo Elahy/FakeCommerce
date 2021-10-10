@@ -47,14 +47,11 @@ app.use("/files", express.static(path.join(__dirname, "/uploads")));
 mongoose.set("useFindAndModify", false);
 mongoose
     // .connect(`mongodb://${process.env.HOST}:27017/store-api`, {
-    .connect(
-        "mongodb+srv://Elahy:a123@cluster-itstore.lswoi.mongodb.net/storeAPI?retryWrites=true&w=majority",
-        {
-            dbName: "storeAPIdb",
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-        },
-    )
+    .connect(process.env.MONGO_URL, {
+        dbName: "storeAPIdb",
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+    })
     .then((result) => {
         app.listen(process.env.PORT || port, () => {
             console.log(`Server running at ${process.env.PORT || port}`);
